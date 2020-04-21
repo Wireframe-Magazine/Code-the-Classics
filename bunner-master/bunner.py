@@ -738,41 +738,53 @@ class Game:
         return int(-320 - game.bunner.min_y) // 40
 
     def play_sound(self, name, count=1):
-        # Some sounds have multiple varieties. If count > 1, we'll randomly choose one from those
-        # We don't play any sounds if there is no player (e.g. if we're on the menu)
-        if self.bunner:
-            # Pygame Zero allows you to write things like 'sounds.explosion.play()'
-            # This automatically loads and plays a file named 'explosion.wav' (or .ogg) from the sounds folder (if
-            # such a file exists)
-            # But what if you have files named 'explosion0.ogg' to 'explosion5.ogg' and want to randomly choose
-            # one of them to play? You can generate a string such as 'explosion3', but to use such a string
-            # to access an attribute of Pygame Zero's sounds object, we must use Python's built-in function getattr
-            sound = getattr(sounds, name + str(randint(0, count - 1)))
-            sound.play()
+        try:
+            # Some sounds have multiple varieties. If count > 1, we'll randomly choose one from those
+            # We don't play any sounds if there is no player (e.g. if we're on the menu)
+            if self.bunner:
+                # Pygame Zero allows you to write things like 'sounds.explosion.play()'
+                # This automatically loads and plays a file named 'explosion.wav' (or .ogg) from the sounds folder (if
+                # such a file exists)
+                # But what if you have files named 'explosion0.ogg' to 'explosion5.ogg' and want to randomly choose
+                # one of them to play? You can generate a string such as 'explosion3', but to use such a string
+                # to access an attribute of Pygame Zero's sounds object, we must use Python's built-in function getattr
+                sound = getattr(sounds, name + str(randint(0, count - 1)))
+                sound.play()
+        except:
+            # If a sound fails to play, ignore the error
+            pass
 
     def loop_sound(self, name, count, volume):
-        # Similar to play_sound above, but for looped sounds we need to keep a reference to the sound so that we can
-        # later modify its volume or turn it off. We use the dictionary self.looped_sounds for this - the sound
-        # effect name is the key, and the value is the corresponding sound reference.
-        if volume > 0 and not name in self.looped_sounds:
-            full_name = name + str(randint(0, count - 1))
-            sound = getattr(sounds, full_name)      # see play_sound method above for explanation
-            sound.play(-1)  # -1 means sound will loop indefinitely
-            self.looped_sounds[name] = sound
+        try:
+            # Similar to play_sound above, but for looped sounds we need to keep a reference to the sound so that we can
+            # later modify its volume or turn it off. We use the dictionary self.looped_sounds for this - the sound
+            # effect name is the key, and the value is the corresponding sound reference.
+            if volume > 0 and not name in self.looped_sounds:
+                full_name = name + str(randint(0, count - 1))
+                sound = getattr(sounds, full_name)      # see play_sound method above for explanation
+                sound.play(-1)  # -1 means sound will loop indefinitely
+                self.looped_sounds[name] = sound
 
-        if name in self.looped_sounds:
-            sound = self.looped_sounds[name]
-            if volume > 0:
-                sound.set_volume(volume)
-            else:
-                sound.stop()
-                del self.looped_sounds[name]
+            if name in self.looped_sounds:
+                sound = self.looped_sounds[name]
+                if volume > 0:
+                    sound.set_volume(volume)
+                else:
+                    sound.stop()
+                    del self.looped_sounds[name]
+        except:
+            # If a sound fails to play, ignore the error
+            pass
+
 
     def stop_looped_sounds(self):
-        for sound in self.looped_sounds.values():
-            sound.stop()
-        self.looped_sounds.clear()
-
+        try:
+            for sound in self.looped_sounds.values():
+                sound.stop()
+            self.looped_sounds.clear()
+        except:
+            # If sound system is not working/present, ignore the error
+            pass
 
 # Dictionary to keep track of which keys are currently being held down
 key_status = {}
