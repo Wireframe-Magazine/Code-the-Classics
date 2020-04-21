@@ -761,12 +761,18 @@ def draw():
         # Display "Game Over" image
         screen.blit("over", (0, 0))
 
-# The mixer allows us to play sounds and music
-pygame.mixer.quit()
-pygame.mixer.init(44100, -16, 2, 1024)
+# Set up sound system and start music
+try:
+    pygame.mixer.quit()
+    pygame.mixer.init(44100, -16, 2, 1024)
 
-music.play("theme")
-music.set_volume(0.3)
+    music.play("theme")
+    music.set_volume(0.3)
+except:
+    # If an error occurs, just ignore it
+    pass
+
+
 
 # Set the initial game state
 state = State.MENU
