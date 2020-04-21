@@ -89,7 +89,7 @@ class Ball(Actor):
             # The centre of each bat is 40 pixels from the edge of the screen, or to put it another way, 360 pixels
             # from the centre of the screen. The bat is 18 pixels wide and the ball is 14 pixels wide. Given that these
             # sprites are anchored from their centres, when determining if they overlap or touch, we need to look at
-            # their half-widths – 9 and 7. Therefore, if the centre of the ball is 344 pixels from the centre of the
+            # their half-widths - 9 and 7. Therefore, if the centre of the ball is 344 pixels from the centre of the
             # screen, it can bounce off a bat (assuming the bat is in the right position on the Y axis - checked
             # shortly afterwards).
             # We also check the previous X position to ensure that this is the first frame in which the ball crossed the threshold.
@@ -117,7 +117,7 @@ class Ball(Actor):
                     # and 2 metres per second down. Imagine this is taking place in space, so gravity isn't a factor.
                     # After the ball hits the bat, it's still going to be moving at 2 m/s down, but it's now going to be
                     # moving 1 m/s to the left instead of right. So its speed on the y-axis hasn't changed, but its
-                    # direction on the x-axis has been reversed. This is extremely easy to code – "self.dx = -self.dx".
+                    # direction on the x-axis has been reversed. This is extremely easy to code - "self.dx = -self.dx".
                     # However, games don't have to perfectly reflect reality.
                     # In Pong, hitting the ball with the upper or lower parts of the bat would make it bounce diagonally
                     # upwards or downwards respectively. This gives the player a degree of control over where the ball
@@ -203,7 +203,7 @@ class Bat(Actor):
 
         # Each bat has a timer which starts at zero and counts down by one every frame. When a player concedes a point,
         # their timer is set to 20, which causes the bat to display a different animation frame. It is also used to
-        # decide when to create a new ball in the centre of the screen – see comments in Game.update for more on this.
+        # decide when to create a new ball in the centre of the screen - see comments in Game.update for more on this.
         # Finally, it is used in Game.draw to determine when to display a visual effect over the top of the background
         self.timer = 0
 
@@ -244,11 +244,11 @@ class Bat(Actor):
 
         # If the ball is close, we want to move towards its position on the Y axis. We also apply a small offset which
         # is randomly generated each time the ball bounces. This is to make the computer player slightly less robotic
-        # – a human player wouldn't be able to hit the ball right in the centre of the bat each time.
+        # - a human player wouldn't be able to hit the ball right in the centre of the bat each time.
         target_y_2 = game.ball.y + game.ai_offset
 
         # The final step is to work out the actual Y position we want to move towards. We use what's called a weighted
-        # average – taking the average of the two target Y positions we've previously calculated, but shifting the
+        # average - taking the average of the two target Y positions we've previously calculated, but shifting the
         # balance towards one or the other depending on how far away the ball is. If the ball is more than 400 pixels
         # (half the screen width) away on the X axis, our target will be half the screen height (target_y_1). If the
         # ball is at the same position as us on the X axis, our target will be target_y_2. If it's 200 pixels away,
@@ -274,7 +274,7 @@ class Game:
         self.ball = Ball(-1)
 
         # Create an empty list which will later store the details of currently playing impact
-        # animations – these are displayed for a short time every time the ball bounces
+        # animations - these are displayed for a short time every time the ball bounces
         self.impacts = []
 
         # Add an offset to the AI player's target Y position, so it won't aim to hit the ball exactly
@@ -327,8 +327,8 @@ class Game:
             if self.bats[p].timer > 0 and game.ball.out():
                 screen.blit("effect" + str(p), (0,0))
 
-        # Draw bats, ball and impact effects – in that order. Square brackets are needed around the ball because
-        # it's just an object, whereas the other two are lists – and you can't directly join an object onto a
+        # Draw bats, ball and impact effects - in that order. Square brackets are needed around the ball because
+        # it's just an object, whereas the other two are lists - and you can't directly join an object onto a
         # list without first putting it in a list
         for obj in self.bats + [self.ball] + self.impacts:
             obj.draw()
