@@ -420,9 +420,9 @@ def allow_movement(x, y):
 # This is called when a computer-controlled player with the ball is working out which direction to run in, or whether
 # to pass the ball to another player, or kick it into the goal.
 # Several things make up the final score:
-# - the distance to our own goal – further away is better
-# - the proximity of players on the other team – we want to get the ball away from them as much as possible
-# - a quadratic equation (don’t panic too much!) causing the player to favour the centre of the pitch and their opponents goal
+# - the distance to our own goal - further away is better
+# - the proximity of players on the other team - we want to get the ball away from them as much as possible
+# - a quadratic equation (don't panic too much!) causing the player to favour the centre of the pitch and their opponents goal
 # - an optional handicap value which can bias the result towards or away from a particular position
 def cost(pos, team, handicap=0):
     # Get pos of our own goal. We do it this way rather than getting the pos of the actual goal object
@@ -603,7 +603,7 @@ class Player(MyActor):
         else:
             # No-one has the ball
 
-            # If we’re pre-kickoff and I’m the kickoff player, OR if we’re not pre-kickoff and I’m active
+            # If we're pre-kickoff and I'm the kickoff player, OR if we're not pre-kickoff and I'm active
             if (pre_kickoff and i_am_kickoff_player) or (not pre_kickoff and self.active()):
                 # Try to intercept the ball
                 # Deciding where to go to achieve this is harder than you might think. You can't target the ball's
@@ -748,7 +748,7 @@ class Game:
         # If team 1 just scored (or if it's the start of the game), team 0 will kick off
         other_team = 1 if self.scoring_team == 0 else 0
 
-        # Players are stored in the players list in an alternating fashion – the first player being on team 0, the
+        # Players are stored in the players list in an alternating fashion - the first player being on team 0, the
         # second on team 1, the third on team 0 etc. The player that kicks off will always be the first player of
         # the relevant team.
         self.kickoff_player = self.players[other_team]
