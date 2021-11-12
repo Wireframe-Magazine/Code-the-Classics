@@ -501,7 +501,7 @@ class Game:
         return 0.001 + (0.0001 * min(100, self.level))
 
     def max_enemies(self):
-        # Maximum number of enemies on-screen at once – increases as you progress through the levels
+        # Maximum number of enemies on-screen at once - increases as you progress through the levels
         return min((self.level + 6) // 2, 8)
 
     def next_level(self):

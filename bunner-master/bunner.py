@@ -198,7 +198,7 @@ class Bunner(MyActor):
                 self.image = "sit" + str(self.direction)
         elif self.state == PlayerState.SPLASH and self.timer > 84:
             # Display appropriate 'splash' animation frame. Note that we use a different technique to display the
-            # 'splat' image – see: comments earlier in this method. The reason two different techniques are used is
+            # 'splat' image - see: comments earlier in this method. The reason two different techniques are used is
             # that the splash image should be drawn on top of other objects, whereas the splat image must be drawn
             # underneath other objects. Since the player is always drawn on top of other objects, changing the player
             # sprite is a suitable method of displaying the splash image.
@@ -283,7 +283,7 @@ class Row(MyActor):
     def check_collision(self, x):
         # Returns the new state the player should be in, based on whether or not the player collided with anything on
         # this road. As this class is the base class for other types of row, this method defines the default behaviour
-        # – i.e. unless a subclass overrides this method, the player can walk around on a row without dying.
+        # - i.e. unless a subclass overrides this method, the player can walk around on a row without dying.
         return PlayerState.ALIVE, 0
 
     def allow_movement(self, x):

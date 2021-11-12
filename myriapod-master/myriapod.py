@@ -150,7 +150,7 @@ class Player(Actor):
                 difference = (dir - self.direction)
 
                 # We use the following list to decide how much to rotate by each frame, based on difference.
-                # It's easiest to think about this by just considering the first four direction values – 0 to 3,
+                # It's easiest to think about this by just considering the first four direction values - 0 to 3,
                 # corresponding to facing up, to fit into the bottom right. However, because of the symmetry of the
                 # player sprites as described above, these calculations work for all possible directions.
                 # If there is no difference, no rotation is required.
@@ -315,12 +315,12 @@ class Bullet(Actor):
         # Move up the screen, 24 pixels per frame
         self.y -= 24
 
-        # game.damage checks to see if there is a rock at the given position – if so, it damages
+        # game.damage checks to see if there is a rock at the given position - if so, it damages
         # the rock and returns True
         # An asterisk before a list or tuple will unpack the contents into separate values
         grid_cell = pos2cell(*self.pos)
         if game.damage(*grid_cell, 1, True):
-            # Hit a rock – destroy self
+            # Hit a rock - destroy self
             self.done = True
         else:
             # Didn't hit a rock
@@ -656,7 +656,7 @@ class Game:
         rock = self.grid[cell_y][cell_x]
 
         if rock != None:
-            # rock.damage returns False if the rock has lost all its health – in this case, the grid cell will be set
+            # rock.damage returns False if the rock has lost all its health - in this case, the grid cell will be set
             # to None, overwriting the rock object reference
             if rock.damage(amount, from_bullet):
                 self.grid[cell_y][cell_x] = None
@@ -703,7 +703,7 @@ class Game:
         # updated, it will create entries in the occupied set to indicate that other segments should not attempt to
         # enter its current grid cell. There are two types of entries that are created in the occupied set. One is a
         # tuple consisting of a pair of numbers, representing grid cell coordinates. The other is a tuple consisting of
-        # three numbers – the first two being grid cell coordinates, the third representing an edge through which a
+        # three numbers - the first two being grid cell coordinates, the third representing an edge through which a
         # segment is trying to enter a cell.
         # It is only used for myriapod segments - not rocks. Those are stored in self.grid.
         self.occupied = set()
@@ -733,9 +733,9 @@ class Game:
             self.flying_enemy = FlyingEnemy(self.player.x if self.player else 240)
 
         if self.segments == []:
-            # No myriapod segments – start a new wave
+            # No myriapod segments - start a new wave
             # First, ensure there are enough rocks. Count the number of rocks in the grid and if there aren't enough,
-            # create one per frame. Initially there should be 30 rocks – each wave, this goes up by one.
+            # create one per frame. Initially there should be 30 rocks - each wave, this goes up by one.
             num_rocks = 0
             for row in self.grid:
                 for element in row:
@@ -782,7 +782,7 @@ class Game:
         def sort_key(obj):
             # Returns a tuple consisting of two elements. The first is whether the object is an instance of the
             # Explosion class (True or False). A value of true means it will be displayed in front of other objects.
-            # The second element is a number – either the objects why position, or zero if obj is 'None'
+            # The second element is a number - either the objects why position, or zero if obj is 'None'
             return (isinstance(obj, Explosion), obj.y if obj else 0)
 
         # Sort list using the above function to determine order
