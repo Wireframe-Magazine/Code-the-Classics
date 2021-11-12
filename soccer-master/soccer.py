@@ -422,7 +422,7 @@ def allow_movement(x, y):
 # Several things make up the final score:
 # - the distance to our own goal - further away is better
 # - the proximity of players on the other team - we want to get the ball away from them as much as possible
-# - a quadratic equation (don’t panic too much!) causing the player to favour the centre of the pitch and their opponents goal
+# - a quadratic equation (don't panic too much!) causing the player to favour the centre of the pitch and their opponents goal
 # - an optional handicap value which can bias the result towards or away from a particular position
 def cost(pos, team, handicap=0):
     # Get pos of our own goal. We do it this way rather than getting the pos of the actual goal object
@@ -603,7 +603,7 @@ class Player(MyActor):
         else:
             # No-one has the ball
 
-            # If we’re pre-kickoff and I’m the kickoff player, OR if we’re not pre-kickoff and I’m active
+            # If we're pre-kickoff and I'm the kickoff player, OR if we're not pre-kickoff and I'm active
             if (pre_kickoff and i_am_kickoff_player) or (not pre_kickoff and self.active()):
                 # Try to intercept the ball
                 # Deciding where to go to achieve this is harder than you might think. You can't target the ball's
