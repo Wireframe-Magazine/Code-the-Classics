@@ -350,10 +350,12 @@ class Game:
                 image = "digit" + colour + str(score[i])
                 screen.blit(image, (255 + (160 * p) + (i * 55), 46))
 
-    def play_sound(self, name, count=1):
+    def play_sound(self, name, count=1, menu_sound=False):
         # Some sounds have multiple varieties. If count > 1, we'll randomly choose one from those
         # We don't play any in-game sound effects if player 0 is an AI player - as this means we're on the menu
-        if self.bats[0].move_func != self.bats[0].ai:
+        # Updated Jan 2022 - some Pygame installations have issues playing ogg sound files. play_sound can skip sound
+        # errors without stopping the game, but it previously couldn't be used for menu-only sounds
+        if self.bats[0].move_func != self.bats[0].ai or menu_sound:
             # Pygame Zero allows you to write things like 'sounds.explosion.play()'
             # This automatically loads and plays a file named 'explosion.wav' (or .ogg) from the sounds folder (if
             # such a file exists)
@@ -362,7 +364,7 @@ class Game:
             # to access an attribute of Pygame Zero's sounds object, we must use Python's built-in function getattr
             try:
                 getattr(sounds, name + str(random.randint(0, count - 1))).play()
-            except:
+            except Exception as e:
                 pass
 
 def p1_controls():
@@ -416,10 +418,10 @@ def update():
         else:
             # Detect up/down keys
             if num_players == 2 and keyboard.up:
-                sounds.up.play()
+                game.play_sound("up", menu_sound=True)
                 num_players = 1
             elif num_players == 1 and keyboard.down:
-                sounds.down.play()
+                game.play_sound("down", menu_sound=True)
                 num_players = 2
 
             # Update the 'attract mode' game in the background (two AIs playing each other)
@@ -459,7 +461,7 @@ try:
 
     music.play("theme")
     music.set_volume(0.3)
-except:
+except Exception:
     # If an error occurs (e.g. no sound device), just ignore it
     pass
 

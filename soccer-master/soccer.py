@@ -708,7 +708,8 @@ class Game:
                 # No players - we must be on the menu. Play title music.
                 music.play("theme")
                 sounds.crowd.stop()
-        except:
+        except Exception:
+            # Ignore sound errors
             pass
 
         self.score_timer = 0
@@ -945,6 +946,7 @@ class Game:
             try:
                 getattr(sounds, name+str(random.randint(0, c-1))).play()
             except:
+                # Ignore sound errors
                 pass
 
 
@@ -1039,7 +1041,11 @@ def update():
             elif key_just_pressed(keys.UP):
                 selection_change = -1
             if selection_change != 0:
-                sounds.move.play()
+                try:
+                    sounds.move.play()
+                except Exception:
+                    # Ignore sound errors
+                    pass
                 if menu_state == MenuState.NUM_PLAYERS:
                     menu_num_players = 2 if menu_num_players == 1 else 1
                 else:
@@ -1098,11 +1104,12 @@ def draw():
             img = "l" + str(i) + str(game.teams[i].score)
             screen.blit(img, (HALF_WINDOW_W + 25 - 125 * i, 144))
 
-# Set up sound
+# Set up sound system
 try:
     pygame.mixer.quit()
     pygame.mixer.init(44100, -16, 2, 1024)
-except:
+except Exception:
+    # Ignore sound errors
     pass
 
 # Set the initial game state
