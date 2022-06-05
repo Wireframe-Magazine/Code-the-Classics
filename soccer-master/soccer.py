@@ -571,7 +571,7 @@ class Player(MyActor):
                     target.x = max(AI_MIN_X, min(AI_MAX_X, target.x))
                     target.y = max(AI_MIN_Y, min(AI_MAX_Y, target.y))
 
-                    other_team = 1 if self.team == 0 else 1
+                    other_team = 1 if self.team == 0 else 0
                     speed = LEAD_PLAYER_BASE_SPEED
                     if game.teams[other_team].human():
                         speed += game.difficulty.speed_boost
@@ -794,7 +794,7 @@ class Game:
             o = self.ball.owner
             pos, team = o.vpos, o.team
             owners_target_goal = game.goals[team]
-            other_team = 1 if team == 0 else 1
+            other_team = 1 if team == 0 else 0
 
             if self.difficulty.goalie_enabled:
                 # Find the nearest opposing team player to the goal, and make them mark the goal
