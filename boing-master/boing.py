@@ -298,7 +298,7 @@ class Game:
         if self.ball.out():
             # Work out which player gained a point, based on whether the ball
             # was on the left or right-hand side of the screen
-            scoring_player = 1 if self.ball.x < WIDTH // 2 else 0
+            scoring_player = 1 if self.ball.x < HALF_WIDTH else 0
             losing_player = 1 - scoring_player
 
             # We use the timer of the player who has just conceded a point to decide when to create a new ball in the
